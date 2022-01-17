@@ -1,0 +1,165 @@
+@import "varibale";
+
+body{
+    display: flex;
+    flex-direction: column ;
+    justify-content: center; /*水平居中*/
+    align-items: center;/*垂直居中*/
+    background-color: $white;
+    background-image: url($bgPattern);
+    font-family: $abel;
+    color: $red;
+}
+
+
+h2 {
+  font-size: 5em;
+  color: #ffc107;
+  font-family: "Arial Black", Gadget, sans-serif;
+  text-shadow: 0px 0px 0 rgb(193,131,0),
+              1px 1px 0 rgb(181,119,0),
+              2px 2px 0 rgb(169,107,0),
+              3px 3px 0 rgb(157,95,0),
+              4px 4px 0 rgb(146,84,0),
+              5px 5px 0 rgb(134,72,0),
+              6px 6px 0 rgb(122,60,0),
+              7px 7px 0 rgb(110,48,0),
+              8px 8px 0 rgb(98,36,0),
+              9px 9px 0 rgb(86,24,0),
+              10px 10px  0 rgb(74,12,0),
+              11px 11px 10px rgba(0,0,0,0.6),
+              11px 11px 1px rgba(0,0,0,0.5),
+              0px 0px 10px rgba(0,0,0,.2);
+}
+
+#Github {
+  position: absolute;
+  top: 80%;
+  left: 37%;
+  margin-left: -70px;
+  display: inline-block;
+  background-color: $yellow;
+  padding: 15px 40px;
+  border: none;
+  border-radius: 30px;
+  font-size: 20px;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: $red;
+
+  box-shadow: 0 3px 0 $red;
+  cursor: pointer;
+  transition: all 100ms linear;
+  &:hover {
+      @include transform(translateY(-4px));
+      box-shadow: 0 7px 0 $red;
+  }
+  &:focus { outline: 0; }
+}
+
+#startGame {
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    margin-left: -70px;
+    display: inline-block;
+    background-color: $yellow;
+    padding: 15px 40px;
+    border: none;
+    border-radius: 30px;
+    font-size: 20px;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: $red;
+
+    box-shadow: 0 3px 0 $red;
+    cursor: pointer;
+    transition: all 100ms linear;
+    &:hover {
+        @include transform(translateY(-4px));
+        box-shadow: 0 7px 0 $red;
+    }
+    &:focus { outline: 0; }
+}
+
+#Add {
+  position: absolute;
+  top: 80%;
+  left: 63%;
+  margin-left: -70px;
+  display: inline-block;
+  background-color: $yellow;
+  padding: 15px 40px;
+  border: none;
+  border-radius: 30px;
+  font-size: 20px;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: $red;
+
+  box-shadow: 0 3px 0 $red;
+  cursor: pointer;
+  transition: all 100ms linear;
+  &:hover {
+      @include transform(translateY(-4px));
+      box-shadow: 0 7px 0 $red;
+  }
+  &:focus { outline: 0; }
+}
+
+#role{
+    position: relative;
+    top: -30%;
+    left: 5%;
+    z-index: 2;
+    margin-top: -60px;
+    margin-left: -140px;
+    
+    #name{
+      font-size: 2em;
+      text-align:center;
+    }
+    #intr{
+      text-align: center;
+      font-size: 1.2em;
+    }
+}
+
+
+#prev,
+#next {
+  position: relative;
+  width: 4rem;
+  cursor: pointer;
+  opacity: .2;
+  -webkit-transition: all .3s ease;
+  transition: all .3s ease;
+}
+
+@media only screen and (max-width: 650px) {
+  #prev,
+  #next {
+    display: none;
+  }
+}
+
+#prev:hover,
+#next:hover {
+  opacity: 1;
+}
+
+#prev {
+  position: absolute;
+  top: 50%;
+  left: 30%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+
+#next {
+  position: absolute;
+  top: 50%;
+  right: 30%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+}

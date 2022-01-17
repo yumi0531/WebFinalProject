@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>期末專案</title>
+    <meta charset="utf-8">
+    <link href="UI/scss/all.css" rel="stylesheet" type="text/css">
+    <!-----引入craetjs------>
+    <script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>
+    <script src="https://code.jquery.com/jquery-latest.js"></script>
+    <!--------------------->
+    <!-----引入 SweetAlert 的 JS 套件------>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <!--------------------->
+    <style>
+        a {
+            text-decoration: none;
+        }
+        
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            /*水平居中*/
+            align-items: center;
+            /*垂直居中*/
+        }
+        
+        .img-zoom {
+            width: 100px;
+        }
+        
+        .img-zoom-animation {
+            position: absolute;
+            width: 0px;
+            z-index: 10;
+            transition: width 0.3s linear 0s;
+        }
+        
+        .img-zoom:hover+.img-zoom-animation {
+            width: 200px;
+        }
+        
+        .download {
+            font-size: 35px;
+            color: #ffc107;
+            font-family: "Arial Black", Gadget, sans-serif;
+            text-shadow: 0px 0px 0 rgb(193, 131, 0), 1px 1px 0 rgb(181, 119, 0), 2px 2px 0 rgb(169, 107, 0), 3px 3px 0 rgb(157, 95, 0), 4px 4px 0 rgb(146, 84, 0), 5px 5px 0 rgb(134, 72, 0), 6px 6px 0 rgb(122, 60, 0), 7px 7px 0 rgb(110, 48, 0), 8px 8px 0 rgb(98, 36, 0), 9px 9px 0 rgb(86, 24, 0), 10px 10px 0 rgb(74, 12, 0), 11px 11px 10px rgba(0, 0, 0, 0.6), 11px 11px 1px rgba(0, 0, 0, 0.5), 0px 0px 10px rgba(0, 0, 0, .2);
+            /* position: absolute;
+            top: 1px;
+            left: 30%; */
+            /*無法使用absolute在每一台電腦會不一樣*/
+            transition: 0.5s;
+        }
+        
+        @keyframes swing {
+            15% {
+                transform: translateX(5px);
+            }
+            45% {
+                transform: translateX(-5px);
+            }
+            65% {
+                transform: translateX(2px);
+            }
+            85% {
+                transform: translateX(-2px);
+            }
+            100% {
+                transform: translateX(0px);
+            }
+        }
+        
+        .download:hover {
+            animation: swing 1s 1;
+            /* transform: scale(1.2); */
+        }
+        
+        h2 {
+            font-size: 7em;
+            color: #ffc107;
+            font-family: "Arial Black", Gadget, sans-serif;
+            text-shadow: 0px 0px 0 rgb(193, 131, 0), 1px 1px 0 rgb(181, 119, 0), 2px 2px 0 rgb(169, 107, 0), 3px 3px 0 rgb(157, 95, 0), 4px 4px 0 rgb(146, 84, 0), 5px 5px 0 rgb(134, 72, 0), 6px 6px 0 rgb(122, 60, 0), 7px 7px 0 rgb(110, 48, 0), 8px 8px 0 rgb(98, 36, 0), 9px 9px 0 rgb(86, 24, 0), 10px 10px 0 rgb(74, 12, 0), 11px 11px 10px rgba(0, 0, 0, 0.6), 11px 11px 1px rgba(0, 0, 0, 0.5), 0px 0px 10px rgba(0, 0, 0, .2);
+            /* position: absolute;
+                top: 1px;
+                left: 30%; */
+        }
+        /* yumi寫的 */
+        /* #role { 
+            width: 150px;
+            height: 150px;
+            }  */
+        
+        .animated {
+            -webkit-animation-duration: 1s;
+            animation-duration: 1s;
+            -webkit-animation-fill-mode: both;
+            animation-fill-mode: both;
+            animation-iteration-count: infinite;
+            -webkit-animation-iteration-count: infinite;
+        }
+        
+        @-webkit-keyframes bounce {
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                -webkit-transform: translateY(0);
+            }
+            40% {
+                -webkit-transform: translateY(-30px);
+            }
+            60% {
+                -webkit-transform: translateY(-15px);
+            }
+        }
+        
+        @keyframes bounce {
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-30px);
+            }
+            60% {
+                transform: translateY(-15px);
+            }
+        }
+        
+        .bounce {
+            -webkit-animation-name: bounce;
+            animation-name: bounce;
+        }
+        
+        .background {
+            table-layout: fixed;
+            border-spacing: 0;
+        }
+        
+        .background td {
+            padding: 0;
+        }
+        
+        .lava {
+            /* background: red;
+             */
+            background-image: url(UI/下載\ \(1\).jpg);
+        }
+        
+        .wall {
+            background-image: url(UI/wall.jpg);
+            /* border: solid 3px #A36841; */
+            box-sizing: content-box;
+        }
+        
+        .actor {
+            position: absolute;
+            /* background-color: cornflowerblue; */
+            /* background-image: url(UI/smallcat.png); */
+            /* background-color: black; */
+        }
+        
+        .coin {
+            /* background-image: url(UI/3031.png); */
+            background-image: url(UI/hamburger.png);
+            background-repeat: no-repeat;
+            background-size: 50px 50px;
+        }
+        
+        .player {
+            /* width: 50px;
+            height: 50px; */
+            /* background: #335699; */
+            /* background-image: url(UI/smallcatt-PhotoRoom.png); */
+            /* background-image: url(UI/smallcatt.png); */
+            /* /* box-shadow: none; */
+            background-repeat: no-repeat;
+            background-size: 45px 60px;
+        }
+        
+        .lost .player {
+            /* background: #a04040;*/
+            /* background: rgb(160, 64, 64); */
+            background-image: url(UI/c18.png);
+            background-repeat: no-repeat;
+            background-size: 40px 40px;
+        }
+        
+        .won .player {
+            background-image: url(UI/c18.png);
+            background-repeat: no-repeat;
+            background-size: 60px 60px;
+        }
+        
+        .game {
+            position: relative;
+            margin: 0 auto;
+        }
+        
+        .modal-content {
+            /* background-color: #e55; */
+            font-size: larger;
+            color: black;
+        }
+        
+        .direction {
+            /* width: 50px;
+            height: 50px; */
+            position: relative;
+            left: 50%;
+        }
+        /* .btn {
+            width: 90px;
+            position: absolute;
+            top: 30px;
+            left: 10px;
+        } 之前的東西*/
+    </style>
+</head>
+
+<body>
+    <h2><a href="/網頁程式設計期末專案提案.pptx" class="download" download="網頁程式設計期末專案提案.pptx">Hamburger Hunter🍔</a></h2>
+    <!-----引入craetjs------>
+    <script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>
+    <!-- <script src="bg.js"></script> -->
+    <script src="https://code.jquery.com/jquery-latest.js"></script>
+    <!--------------------->
+    <!-----引入 SweetAlert 的 JS 套件------>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+    </script>
+    <!--------------------->
+
+    </script>
+    <script>
+        var url;
+        //關卡陣列
+        var LEVELS = [
+            ["                                                                                   ",
+                "  easly                                                                              ",
+                "  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                "  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                "  x                                                                            x",
+                "  x                                                                            x ",
+                "  x                                                                            x ",
+                "  x                                                                            x ",
+                "  x              o                                                             x ",
+                "  x     @                  o                                                   x ",
+                "  x                      o            o                                 o      x ",
+                "  x          xxxxxxx                               x                           x ",
+                "  x          x     x                                                           x ",
+                "  xxxxxxxxxxxx     xxxxxxxxx   xxxxxxxxxxxxxxxx         xxxxxxx   xxxxxxxx     x ",
+                "  xxxxxxxxxxxx     xxxxxxxxx   xxxxxxxxxxxxxxxx         xxxxxxx   xxxxxxxx     x ",
+                "  xxxxxxxxxxxx     xxxxxxxxx!!!xxxxxxxxxxxxxxxx!!!!!!!!!xxxxxxx   xxxxxxxx     x ",
+                "  xxxxxxxxxxxx     xxxxxxxxx!!!xxxxxxxxxxxxxxxx!!!!!!!!!xxxxxxx   xxxxxxxx     x ",
+                "  xxxxxxxxxxxx     xxxxxxxxx!!!xxxxxxxxxxxxxxxx!!!!!!!!!xxxxxxx   xxxxxxxx     x ",
+                "  xxxxxxxxxxxx     xxxxxxxxx!!!xxxxxxxxxxxxxxxx!!!!!!!!!xxxxxxx   xxxxxxxx     x ",
+                "  xxxxxxxxxxxx     xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx   xxxxxxxx     x "
+            ],
+            ["   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                "x  mid                                                                                                xx ",
+                "x                                                                                                     xx ",
+                "x                                                                                                     xx ",
+                "x                                                                                                     xx ",
+                "x                                          o    o                                                     xx ",
+                "x                                                                               xxx                   xx ",
+                "x                                             xx                                !xx                   xx ",
+                "x                  o                        xxxxxx                               !xx         o        xx ",
+                "x                                          xxxxxxxx         o                     !x                  xx ",
+                "x                                         xxxxxxxxxx                                        x         xx ",
+                "x     @         xxxxxx         xx        xxxxxxxxxxxx     x              xx                xxx        xx ",
+                "x             xxxxxxxxxx        x        xxxxxxxxxxxx     x     xxxxx    xx                           xx ",
+                "x            xx       xx        x o                       x              xx                           xx ",
+                "x            x         x        x                        xx              xx                           xx ",
+                "xxxxxxxxxxxxxx         x        x                         x              xx      o    xxxx            xx ",
+                "xxxxxxxxxxxxxx         x      xxx o                       x              xx           xxx      o      xx ",
+                "xxxxxxxxxxxxxx         x!!!!!xx                         xx!!!!!!!!!!!!!!!!x          xxx              xx ",
+                "xxxxxxxxxxxxxx         x!!!!!xx                       xx!!!!!!!!!!!!!!!xxxxxxxxxxxxxxxx             xxxx ",
+                "xxxxxxxxxxxxxx         x!!!!!xx   o                 xx!!!!!!xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx     xxxxxx ",
+                "xxxxxxxxxxxxxx         x!!!!!xx                    xx!!!!!!xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx ",
+                "xxxxxxxxxxxxxx         x!!!!!xx       xxxxxxxxxxxxxx!!!!!!xx                                             ",
+                "xxxxxxxxxxxxxx         x!!!!!!xxxxxxxxx!!!!!!!!!!!!!!!!!!xx                                              ",
+                "xxxxxxxxxxxxxx         x!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!xx                                               "
+            ],
+            ["                                                                                                                    ",
+                "                                                                                                                 ",
+                "                                                                                                                 ",
+                "     hard                                                                                                        ", 
+                "  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx  ",
+                "  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx  ",
+                "  x                                                                                                           x  ",
+                "  x                                                                                                           x  ",
+                "  x                                                                                                           x  ",
+                "  x                                                                                                           x  ",
+                "  x                                                        !!!                                                x  ",
+                "  x                                                        !x!             !xxx                               x  ",
+                "  x                                                         x              !x                                 x  ",
+                "  x                                                         x              !x       xxx                       x  ",
+                "  x                                                         x              !x      x!!!x                      x  ",
+                "  x                                   x   x                 xxxxxxxxxxxxxxxxx       xxx                       x  ",
+                "  x                                  xx   xx      x   x      x                                                x  ",
+                "  x                                   x   xxxxxxxxx   xxxxxxxx                                                x  ",
+                "  x                                   x   x                                                                   x  ",
+                "  x                                   x   x                                               xxx                 x  ",
+                "  x                                 xxx   xx                                             x!!!x                x  ",
+                "  x                                   x   x                                               xxx                 x  ",
+                "  x                                   x   x             o                                                     x  ",
+                "  x                                   x   x                       xxx       xxx                               x  ",
+                "  x                           o   xxxxx   xx                                 xxx                              x  ",
+                "  x                                   x   x           x    xx                xxx                              x  ",
+                "  x                                   x   x        o  x              x               xxx                      x  ",
+                "  x                          xxxxxxxxxxxxxxx   o      x!!!!!!!!!!!!!!x              x!!!x                     x  ",
+                "  x                          xxxxxxxxxxxxxxx          x!!!!!!!!!!!!!!x               xxx                      x  ",
+                "  x                          xx!!!!!!!!!!!xx       xxxxxxxxxxxxxxxxxxx                                        x  ",
+                "  x                          xx!!!!!!!!!!!xx                                              xxx                 x  ",
+                "  x                       xxxxx           xx                                             x!!!x             xxxx  ",
+                "  x                   xxxxxxxxx           xx                                              xxx              xxxx  ",
+                "  x                                       xxxxx     o          o         xxxxx                             xxxx  ",
+                "  x                                       x                              x   x      o                      xxxx  ",
+                "  x          xxx                          x                              x x x                             xxxx  ",
+                "  x                                o o    x        xxxx      xxxx      xxx xxx                             xxxx  ",
+                "  x                                       x          o         o         x         xxx      o              xxxx  ",
+                "  x      @          xxx       xx          x                              xxx      x!!!x                o   xxxx  ",
+                "  x                           x    xxx    x                             xxxx       xxx       o       o     xxxx  ",
+                "  x                           xxxxxxxxxxxxx  x    x    x    x    x     xxxxx                               xxxx  ",
+                "  x                           xxxxxxxxxxxxx!!x    x!!!!x    x!!!!x    xxxxxx                               xxxx  ",
+                "  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx  ",
+                "  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx  ",
+                "                                                                                                              "
+            ],
+
+        ];
+        //Constructor function(構造函數) for Vector objects
+        function Vector(x, y) { //vector函數的input為(x,y), 而input進去的xy等於x和y的屬性
+            this.x = x;
+            this.y = y;
+        }
+        //幫vector物件新增plus屬性
+        //plus為目前所在座標加上移動座標
+        Vector.prototype.plus = function(other) {
+            return new Vector(this.x + other.x, this.y + other.y);
+        };
+
+        Vector.prototype.times = function(scale) {
+            return new Vector(this.x * scale, this.y * scale);
+        };
+
+        // 使用大寫開頭表示Constructor function
+        var actorchars = { //關卡物件
+            "@": Player,
+            "o": Coin,
+            "=": Lava,
+            "|": Lava,
+            "v": Lava
+        };
+
+        //設定player的座標與移動速度,大小
+        function Player(pos) {
+            this.pos = pos.plus(new Vector(0, -.5));
+            this.size = new Vector(2, 3.5);
+            this.speed = new Vector(0, 0);
+        }
+        Player.prototype.type = "player";
+        // console.log(Player.prototype);
+
+        //設定三種lava的大小&速度
+        function Lava(pos, ch) {
+            this.pos = pos;
+            this.size = new Vector(1, 1);
+            if (ch === "=")
+                this.speed = new Vector(2, 0);
+            else if (ch === '|')
+                this.speed = new Vector(0, 2);
+            else if (ch === 'v') {
+                this.speed = new Vector(0, 3);
+                this.repeatPos = pos;
+            }
+        }
+        Lava.prototype.type = "Lava";
+
+        //設定coin的位置與晃動
+        function Coin(pos) {
+            this.basePos = this.pos = pos; //起始位置
+            this.size = new Vector(2.5, 2.5);
+            this.wobble = Math.random() * (Math.PI * 2); //晃動(因為coin是圓形所以用到Math.PI)
+        }
+        Coin.prototype.type = "coin";
+
+        //通關
+        Level.prototype.isFinished = function() {
+            return this.status != null && this.finishDelay < 0;
+        };
+
+        //關卡設置
+        function Level(plan) { //傳入當初刻的關卡陣列
+            this.width = plan[0].length;
+            this.height = plan.length;
+            this.grid = [];
+            this.actors = [];
+
+            //用兩個for迴圈一層一層把關卡屬性套上去
+            for (var y = 0; y < this.height; y++) {
+                var line = plan[y],
+                    gridLine = []; //網格線
+                for (var x = 0; x < this.width; x++) {
+                    var ch = line[x],
+                        fieldType = null;
+                    var Actor = actorchars[ch];
+                    if (Actor)
+                        this.actors.push(new Actor(new Vector(x, y), ch));
+                    else if (ch === "x")
+                        fieldType = "wall";
+                    else if (ch === "!")
+                        fieldType = "lava";
+                    else if (ch === "|")
+                        fieldType = "lava";
+                    else if (ch === "=")
+                        fieldType = "lava";
+                    else if (ch === "v") {
+                        fieldType = "lava";
+                        console.log(fieldType);
+                    }
+                    gridLine.push(fieldType)
+                }
+                this.grid.push(gridLine);
+            }
+            this.player = this.actors.filter(function(actor) {
+                return actor.type === "player"
+            })[0];
+            this.status = this.finishDelay = null;
+        }
+
+        //創一個element函數方便以下綁className
+        function element(name, className) {
+            var elem = document.createElement(name);
+            if (className) elem.className = className;
+            return elem;
+        }
+
+        //
+        function DOMDisplay(parent, level) {
+            this.wrap = parent.appendChild(element("div", "game"));
+            this.level = level;
+
+            this.wrap.appendChild(this.drawBackground());
+            this.actorLayer = null;
+            this.drawFrame();
+        }
+
+        var scale = 15;
+
+        //插入一個background table
+        DOMDisplay.prototype.drawBackground = function() {
+            var table = element("table", "background");
+            table.style.width = this.level.width * scale + "px";
+            table.style.height = this.level.height * scale + "px";
+            this.level.grid.forEach(function(row) {
+                var rowElement = table.appendChild(element("tr"));
+                rowElement.style.height = scale + "px";
+                row.forEach(function(type) {
+                    rowElement.appendChild(element("td", type));
+                });
+            });
+            return table;
+        };
+
+        DOMDisplay.prototype.drawActors = function() {
+            var wrap = element("div");
+            this.level.actors.forEach(function(actor) {
+                var ele = element("div", "actor " + actor.type);
+                if (actor.type != 'coin') //+ ' character' + Length
+                    ele.style = "background-image: url(" + url + ")";
+                var rect = wrap.appendChild(ele);
+                rect.style.width = actor.size.x * scale + "px";
+                rect.style.height = actor.size.y * scale + "px";
+                rect.style.left = actor.pos.x * scale + "px";
+                rect.style.top = actor.pos.y * scale + "px";
+            });
+            return wrap;
+        }
+
+        //
+        DOMDisplay.prototype.drawFrame = function() {
+            if (this.actorLayer)
+                this.wrap.removeChild(this.actorLayer);
+            this.actorLayer = this.wrap.appendChild(this.drawActors());
+            this.wrap.className = "game " + (this.level.status || "");
+            this.scrollPlayerIntoView();
+        };
+
+        // clear it later
+        DOMDisplay.prototype.scrollPlayerIntoView = function() {
+            var width = this.wrap.clientWidth;
+            var height = this.wrap.clientHeight;
+            var margin = width * 3;
+
+            // The viewport
+            var left = this.wrap.scrollLeft,
+                right = left + width;
+            var top = this.wrap.scrollTop,
+                bottom = top + height;
+
+            var player = this.level.player;
+            var center = player.pos.plus(player.size.times(0.5))
+                .times(scale);
+
+            if (center.x < left + margin)
+                this.wrap.scrollLeft = center.x - margin;
+            else if (center.x > right - margin)
+                this.wrap.scrollLeft = center.x + margin - width;
+            if (center.y < top + margin)
+                this.wrap.scrollTop = center.y - margin;
+            else if (center.y > bottom - margin)
+                this.wrap.scrollTop = center.y + margin - height;
+        };
+
+        DOMDisplay.prototype.clear = function() {
+            this.wrap.parentNode.removeChild(this.wrap);
+        };
+
+        Level.prototype.obstacleAt = function(pos, size) {
+            var xStart = Math.floor(pos.x);
+            var xEnd = Math.ceil(pos.x + size.x);
+            var yStart = Math.floor(pos.y);
+            var yEnd = Math.ceil(pos.y + size.y);
+
+            if (xStart < 0 || xEnd > this.width || yStart < 0)
+                return "wall";
+            if (yEnd > this.height)
+                return "lava";
+            for (var y = yStart; y < yEnd; y++) {
+                for (var x = xStart; x < xEnd; x++) {
+                    var fieldType = this.grid[y][x];
+                    if (fieldType) return fieldType;
+                }
+            }
+
+        };
+
+        Level.prototype.actorAt = function(actor) {
+            for (var i = 0; i < this.actors.length; i++) {
+                var other = this.actors[i];
+                if (other != actor &&
+                    actor.pos.x + actor.size.x > other.pos.x &&
+                    actor.pos.x < other.pos.x + other.size.x &&
+                    actor.pos.y + actor.size.y > other.pos.y &&
+                    actor.pos.y < other.pos.y + other.size.y)
+                    return other;
+            }
+        };
+
+        var maxStep = 0.05;
+
+        Level.prototype.animate = function(step, keys) {
+            if (this.status != null)
+                this.finishDelay -= step;
+
+            while (step > 0) {
+                var thisStep = Math.min(step, maxStep);
+                this.actors.forEach(function(actor) {
+                    actor.act(thisStep, this, keys);
+                }, this);
+                step -= thisStep;
+            }
+        };
+
+        Lava.prototype.act = function(step, level) {
+            var newPos = this.pos.plus(this.speed.times(step));
+            if (!level.obstacleAt(newPos, this.size))
+                this.pos = newPos;
+            else if (this.repeatPos)
+                this.pos = this.repeatPos;
+            else
+                this.speed = this.speed.times(-1);
+        };
+
+        var wobbleSpeed = 10, //晃動速度
+            wobbleDist = 0.07; //晃動區域
+        //設定coin的上下晃動
+        Coin.prototype.act = function(step) {
+            this.wobble += step * wobbleSpeed;
+            var wobblePos = Math.sin(this.wobble) * wobbleDist;
+            this.pos = this.basePos.plus(new Vector(0, wobblePos));
+        };
+
+        var playerXSpeed = 10;
+        //設定player的x方向上的移動速度
+        Player.prototype.moveX = function(step, level, keys) {
+            this.speed.x = 0;
+            if (keys.left) this.speed.x -= playerXSpeed; //左邊為負x
+            if (keys.right) this.speed.x += playerXSpeed; //右邊為正x
+
+            var motion = new Vector(this.speed.x * step, 0);
+            var newPos = this.pos.plus(motion); //移動後新的座標由前面plus funtion傳入的屬性決定
+            var obstacle = level.obstacleAt(newPos, this.size); //障礙的座標&大小
+            if (obstacle)
+                level.playerTouched(obstacle); //若Player碰到障礙
+            else
+                this.pos = newPos;
+        };
+
+        var gravity = 30; //向下的重力
+        var jumpSpeed = 17; //向上的跳躍速度
+
+        //設定player的y方向上的移動速度
+        Player.prototype.moveY = function(step, level, keys) {
+            this.speed.y += step * gravity;
+            var motion = new Vector(0, this.speed.y * step); //y方向上的運動
+            var newPos = this.pos.plus(motion);
+            var obstacle = level.obstacleAt(newPos, this.size); //障礙設定
+            if (obstacle) {
+                level.playerTouched(obstacle);
+                if (keys.up && this.speed.y > 0)
+                    this.speed.y = -jumpSpeed; //跳躍時y方向上的速度會越來越慢
+                else
+                    this.speed.y = 0;
+            } else {
+                this.pos = newPos; //跳完後新的座標
+            }
+        };
+
+        Player.prototype.act = function(step, level, keys) { //設定player的移動
+            this.moveX(step, level, keys);
+            this.moveY(step, level, keys);
+
+            var otherActor = level.actorAt(this);
+            if (otherActor)
+                level.playerTouched(otherActor.type, otherActor);
+
+            // Losing animation
+            if (level.status == "lost") {
+                this.pos.y += step;
+                this.size.y -= step;
+            }
+        };
+
+
+        //設定若player碰到障礙物後的判斷
+        Level.prototype.playerTouched = function(type, actor) {
+            if (type == "lava" && this.status == null) { //若碰到lava
+                this.status = "lost"; //狀態改為lost
+                this.finishDelay = 1;
+                // window.alert
+            } else if (type == "coin") { //若碰到coin
+                var aud1 = document.getElementById("Money");
+                aud1.play();
+                this.actors = this.actors.filter(function(other) {
+                    return other != actor;
+                });
+                if (!this.actors.some(function(actor) {
+                        return actor.type == "coin";
+                    })) {
+                    this.status = "won"; //狀態改為won
+                    this.finishDelay = 1;
+                }
+            }
+        };
+
+        var arrowCodes = {
+            37: "left",
+            38: "up",
+            39: "right"
+        };
+
+        //
+        function trackKeys(codes) {
+            var pressed = Object.create(null);
+
+            function handler(event) {
+                if (codes.hasOwnProperty(event.keyCode)) {
+                    var down = event.type == "keydown"; //設定keydown事件
+                    pressed[codes[event.keyCode]] = down;
+                    event.preventDefault();
+                }
+            }
+            addEventListener("keydown", handler);
+            addEventListener("keyup", handler);
+            return pressed;
+        }
+
+        //更新畫面
+        function runAnimation(frameFunc) {
+            var lastTime = null;
+
+            function frame(time) {
+                var stop = false;
+                if (lastTime != null) {
+                    var timeStep = Math.min(time - lastTime, 100) / 1000;
+                    stop = frameFunc(timeStep) === false;
+                }
+                lastTime = time;
+                if (!stop)
+                    requestAnimationFrame(frame);
+            }
+            requestAnimationFrame(frame);
+        }
+
+        var arrows = trackKeys(arrowCodes);
+
+        function runLevel(level, Display, andThen) {
+            var display = new Display(document.body, level);
+            runAnimation(function(step) {
+                level.animate(step, arrows);
+                display.drawFrame(step);
+                if (level.isFinished()) {
+                    display.clear(); //
+                    if (andThen)
+                        andThen(level.status);
+                    return false;
+                }
+            });
+        }
+
+        function runGame(plans, Display) {
+            function startLevel(n) {
+                runLevel(new Level(plans[n]), Display, function(status) {
+                    if (status == "lost") { //每一次死掉都從目前所在的level開始
+                        startLevel(n);
+                        var aud = document.getElementById("GameOver");
+                        aud.play();
+                        // alert("Restart! Please try again");
+                        swal("You Lose! Please try again", "", "error", {
+                            button: "Restart!"
+                        });
+                    } else if (n < plans.length - 1) {
+                        startLevel(n + 1);
+                    } else {
+                        // alert("You win!");
+                        swal("You Win!", "", "success", {
+                            button: "我超棒!"
+                        });
+                    }
+                });
+            }
+            startLevel(0);
+        }
+
+        function restart() {
+            function startLevel(n) {
+                runLevel(new Level(plans[n]), Display, function(status) {
+                    //每一次死掉都從目前所在的level開始
+                    status = "lost"
+                    startLevel(n);
+                    alert("Restart! Please try again");
+
+                });
+            }
+        }
+
+        function nextLevel(n) {
+            function startLevel(n) {
+                runLevel(new Level(plans[n]), Display, function(status) {
+                    //每一次死掉都從目前所在的level開始
+                    status = "won"
+                    startLevel(n + 1);
+                });
+            }
+        }
+
+        runGame(LEVELS, DOMDisplay);
+
+        function init_character() {
+            const scriptURL = "https://script.google.com/macros/s/AKfycbwI6btxbd2phDodQxeMOc-qE8AAXXUqUVDkDeUAyrtwB2d6pAOPKfG7QFscZv7UWtw0mw/exec";
+            // jquery的 ajax， 使用GET方法
+            $.ajax({
+                url: scriptURL,
+                type: "GET",
+                // 若成功，執行以下...
+                success: function(response) {
+                    Length = response.length - 1;
+                    // $('#test').append(
+                    //     "<p>"+response[Length]+"</p>"+
+                    //     "<img id='pic' src='" + response[Length] + "' alt='一張圖片'>"
+                    // ); //測試用
+
+                    console.log(Length);
+                    console.log(response[Length]);
+                    // $('body').css('background-image', 'url(' + response[Length] + ')') //在body可以成功
+                    url = response[Length]; //在player失敗
+                }
+            });
+        }
+
+        window.onload = init_character;
+    </script>
+
+
+
+    <!-- <button>change</button> -->
+    <!-- <div class="zoom-effect-image"> -->
+    <!-- <img class="UI animated bounce img-zoom" id="role" src="chick.png" alt="角色照片"> -->
+    <!-- <h3 class="UI animated bounce img-zoom-animation">角色介紹</h3> -->
+    <!-- </div> -->
+    <!-- <button class="UI" type="button" id="startGame" onclick="playStartbtn()">Start</button> -->
+    <!--開始按鈕-->
+    <!-- <audio id="pickRole" src="UI/音效/PickRole.mp3" type="audio/mpeg"></audio> -->
+    <!-- <audio id="Start" src="UI/音效/Starting.mp3" type="audio/mpeg"></audio> -->
+    <audio id="Money" src="UI/音效/Money.mp3" type="audio/mpeg"></audio>
+    <audio id="GameOver" src="UI/音效/GameOver.mp3" type="audio/mpeg"></audio>
+    <!-- <svg xmlns="http://www.w3.org/2000/svg" class="UI" id="prev" width="56.898" height="91" viewBox="0 0 56.898 91" onclick="playPickRole()"><path d="M45.5,0,91,56.9,48.452,24.068,0,56.9Z" transform="translate(0 91) rotate(-90)" fill="#FF5E5B"/></svg> -->
+    <!-- <svg xmlns="http://www.w3.org/2000/svg" class="UI" id="next" width="56.898" height="91" viewBox="0 0 56.898 91" onclick="playPickRole()"><path d="M45.5,0,91,56.9,48.452,24.068,0,56.9Z" transform="translate(56.898) rotate(90)" fill="#FF5E5B"/></svg> -->
+
+    <!-- <div class="container"> -->
+    <!-- <div class="btn-group"> -->
+    <!-- <button type="button" class="btn btn-outline-light" onclick="restart()">restart</button> -->
+    <!-- <button type="button" class="btn btn-outline-light" onclick="nextLevel()">nextLevel</button> -->
+    <!-- </div> -->
+    <!-- </div> -->
+</body>
+
+</html>

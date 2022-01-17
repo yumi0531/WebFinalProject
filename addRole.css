@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Wendy+One&display=swap');
+
+h2 {
+  font-size: 5em;
+  color: #ffc107;
+  font-family: "Arial Black", Gadget, sans-serif;
+  text-shadow: 0px 0px 0 rgb(193,131,0),
+              1px 1px 0 rgb(181,119,0),
+              2px 2px 0 rgb(169,107,0),
+              3px 3px 0 rgb(157,95,0),
+              4px 4px 0 rgb(146,84,0),
+              5px 5px 0 rgb(134,72,0),
+              6px 6px 0 rgb(122,60,0),
+              7px 7px 0 rgb(110,48,0),
+              8px 8px 0 rgb(98,36,0),
+              9px 9px 0 rgb(86,24,0),
+              10px 10px  0 rgb(74,12,0),
+              11px 11px 10px rgba(0,0,0,0.6),
+              11px 11px 1px rgba(0,0,0,0.5),
+              0px 0px 10px rgba(0,0,0,.2);
+}
+
+  .form-page {
+    position: relative;
+    top: -60px;
+    width: 360px;
+    padding: 8% 0 0;
+    margin: auto;
+  }
+
+  .form {
+    z-index: 1;
+    background: #FFFFFF;
+    max-width: 360px;
+    margin: 0 auto 100px;
+    padding: 45px;
+    text-align: center;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  }
+  
+  .form input {
+    font-family: "Abel", sans-serif;
+    text-transform: uppercase;
+    outline: 0;
+    background: #f2f2f2;
+    width: 100%;
+    border: 0;
+    margin: 0 0 15px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 1em;
+  }
+
+  .form button {
+    position: relative;
+    left: 30px;
+    margin-left: -70px;
+    display: inline-block;
+    background-color: #FFED66;
+    padding: 15px 40px;
+    border: none;
+    border-radius: 30px;
+    font-size: 1.5em;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #FF5E5B;
+    -webkit-box-shadow: 0 3px 0 #FF5E5B;
+            box-shadow: 0 3px 0 #FF5E5B;
+    cursor: pointer;
+    -webkit-transition: all 100ms linear;
+    transition: all 100ms linear;
+  }
+
+  .form button:hover{
+    -webkit-transform: translateY(-4px);
+    transform: translateY(-4px);
+    -webkit-box-shadow: 0 7px 0 #FF5E5B;
+            box-shadow: 0 7px 0 #FF5E5B;
+  }
+  
+  body {
+    display: flex;
+    flex-direction: column ;
+    justify-content: center; /*水平居中*/
+    align-items: center;/*垂直居中*/
+    background-color: #FFFFEA;
+    background-image: url("https://www.transparenttextures.com/patterns/inspiration-geometry.png");
+  }

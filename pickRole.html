@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>遊戲</title>
+    <meta charset="utf-8">
+    <link href="UI/scss/all.css" rel="stylesheet" type="text/css">
+    <!-----引入craetjs------>
+    <script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://code.jquery.com/jquery-latest.js"></script>
+    <script src="pickRole.js"></script>
+
+    <!--------------------->
+    <title>網程期末專案</title>
+
+    <style>
+        .download {
+            font-size: 35px;
+            color: #ffc107;
+            font-family: "Arial Black", Gadget, sans-serif;
+            text-shadow: 0px 0px 0 rgb(193, 131, 0), 1px 1px 0 rgb(181, 119, 0), 2px 2px 0 rgb(169, 107, 0), 3px 3px 0 rgb(157, 95, 0), 4px 4px 0 rgb(146, 84, 0), 5px 5px 0 rgb(134, 72, 0), 6px 6px 0 rgb(122, 60, 0), 7px 7px 0 rgb(110, 48, 0), 8px 8px 0 rgb(98, 36, 0), 9px 9px 0 rgb(86, 24, 0), 10px 10px 0 rgb(74, 12, 0), 11px 11px 10px rgba(0, 0, 0, 0.6), 11px 11px 1px rgba(0, 0, 0, 0.5), 0px 0px 10px rgba(0, 0, 0, .2);
+            /* position: absolute;
+            top: 1px;
+            left: 30%; */
+            /*無法使用absolute在每一台電腦會不一樣*/
+            transition: 0.5s;
+        }
+        
+        @keyframes swing {
+            15% {
+                transform: translateX(5px);
+            }
+            45% {
+                transform: translateX(-5px);
+            }
+            65% {
+                transform: translateX(2px);
+            }
+            85% {
+                transform: translateX(-2px);
+            }
+            100% {
+                transform: translateX(0px);
+            }
+        }
+        
+        .download:hover {
+            animation: swing 1s 1;
+            /* transform: scale(1.2); */
+        }
+        
+        .animated {
+            -webkit-animation-duration: 1s;
+            animation-duration: 1s;
+            -webkit-animation-fill-mode: both;
+            animation-fill-mode: both;
+            animation-iteration-count: infinite;
+            -webkit-animation-iteration-count: infinite;
+        }
+        
+        @-webkit-keyframes bounce {
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                -webkit-transform: translateY(0);
+            }
+            40% {
+                -webkit-transform: translateY(-30px);
+            }
+            60% {
+                -webkit-transform: translateY(-15px);
+            }
+        }
+        
+        @keyframes bounce {
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-30px);
+            }
+            60% {
+                transform: translateY(-15px);
+            }
+        }
+        
+        .bounce {
+            -webkit-animation-name: bounce;
+            animation-name: bounce;
+        }
+        
+        a {
+            text-decoration: none;
+        }
+        
+        .stroke {
+            /* font-size: px; */
+            -webkit-text-stroke-width: .5px;
+            -webkit-text-stroke-color: #b80000;
+            -webkit-text-fill-color: #ffd500;
+            font-family: Impact, Charcoal, sans-serif;
+            /* text-shadow: 4px 4px 0px #A3A3A3; */
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2 class="download"><a href="/網頁程式設計期末專案提案.pptx" class="download" download="網頁程式設計期末專案提案.pptx">Hamburger Hunter 🍔</a></h2>
+    <!-- <h3>Select Your Player</h3> -->
+
+    <div class="UI animated bounce img-zoom" id="role"></div>
+
+    <!-- <img class="UI animated bounce" id="role" src="chick.png" alt="角色照片"> -->
+    <button class="UI" type="button" id="Github">Github</button>
+    <!--添加按鈕-->
+    <a href="game.html"><button class="UI" type="button" id="startGame">Start</button></a>
+    <!--開始按鈕-->
+    <a href="addRole.html" target="blank"><button class="UI" type="button" id="Add">Add</button></a>
+    <!--添加按鈕-->
+    <svg xmlns="http://www.w3.org/2000/svg" class="UI" id="prev" width="56.898" height="91" viewBox="0 0 56.898 91"><path d="M45.5,0,91,56.9,45.5,24.068,0,56.9Z" transform="translate(0 91) rotate(-90)" fill="#FF5E5B"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" class="UI" id="next" width="56.898" height="91" viewBox="0 0 56.898 91"><path d="M45.5,0,91,56.9,45.5,24.068,0,56.9Z" transform="translate(56.898) rotate(90)" fill="#FF5E5B"/></svg>
+
+</body>
+
+</html>
