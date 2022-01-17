@@ -15,8 +15,8 @@ function send() {
     },
     success: function(response) {
       if(response == "成功"){
-        swal("You Win!", "", "success", {
-                button: "Add Success!"
+        swal("Add Success!", "", "success", {
+                button: "OK"
              });
       }
     },
