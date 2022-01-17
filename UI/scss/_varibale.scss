@@ -1,0 +1,22 @@
+/*Color*/
+$white: #FFFFEA;
+$red: #FF5E5B;
+$blue: #00CECB;
+$yellow: #FFED66;
+
+/*Font-Family*/
+$abel: 'Abel' , sans-serif;
+
+/*bg image*/
+$bgPattern: "https://www.transparenttextures.com/patterns/inspiration-geometry.png";
+
+
+
+
+@mixin transform($transforms) {
+    -moz-transform: $transforms;
+      -o-transform: $transforms;
+     -ms-transform: $transforms;
+ -webkit-transform: $transforms;
+       transform: $transforms;
+}

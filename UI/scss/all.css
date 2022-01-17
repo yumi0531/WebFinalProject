@@ -1,0 +1,186 @@
+@charset "UTF-8";
+/*Color*/
+/*Font-Family*/
+/*bg image*/
+body {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  /*水平居中*/
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  /*垂直居中*/
+  background-color: #FFFFEA;
+  background-image: url("https://www.transparenttextures.com/patterns/inspiration-geometry.png");
+  font-family: "Abel", sans-serif;
+  color: #FF5E5B;
+}
+
+h2 {
+  font-size: 5em;
+  color: #ffc107;
+  font-family: "Arial Black", Gadget, sans-serif;
+  text-shadow: 0px 0px 0 #c18300, 1px 1px 0 #b57700, 2px 2px 0 #a96b00, 3px 3px 0 #9d5f00, 4px 4px 0 #925400, 5px 5px 0 #864800, 6px 6px 0 #7a3c00, 7px 7px 0 #6e3000, 8px 8px 0 #622400, 9px 9px 0 #561800, 10px 10px 0 #4a0c00, 11px 11px 10px rgba(0, 0, 0, 0.6), 11px 11px 1px rgba(0, 0, 0, 0.5), 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+#Github {
+  position: absolute;
+  top: 80%;
+  left: 37%;
+  margin-left: -70px;
+  display: inline-block;
+  background-color: #FFED66;
+  padding: 15px 40px;
+  border: none;
+  border-radius: 30px;
+  font-size: 20px;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #FF5E5B;
+  -webkit-box-shadow: 0 3px 0 #FF5E5B;
+          box-shadow: 0 3px 0 #FF5E5B;
+  cursor: pointer;
+  -webkit-transition: all 100ms linear;
+  transition: all 100ms linear;
+}
+
+#Github:hover {
+  -webkit-transform: translateY(-4px);
+  transform: translateY(-4px);
+  -webkit-box-shadow: 0 7px 0 #FF5E5B;
+          box-shadow: 0 7px 0 #FF5E5B;
+}
+
+#Github:focus {
+  outline: 0;
+}
+
+#startGame {
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  margin-left: -70px;
+  display: inline-block;
+  background-color: #FFED66;
+  padding: 15px 40px;
+  border: none;
+  border-radius: 30px;
+  font-size: 20px;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #FF5E5B;
+  -webkit-box-shadow: 0 3px 0 #FF5E5B;
+          box-shadow: 0 3px 0 #FF5E5B;
+  cursor: pointer;
+  -webkit-transition: all 100ms linear;
+  transition: all 100ms linear;
+}
+
+#startGame:hover {
+  -webkit-transform: translateY(-4px);
+  transform: translateY(-4px);
+  -webkit-box-shadow: 0 7px 0 #FF5E5B;
+          box-shadow: 0 7px 0 #FF5E5B;
+}
+
+#startGame:focus {
+  outline: 0;
+}
+
+#Add {
+  position: absolute;
+  top: 80%;
+  left: 63%;
+  margin-left: -70px;
+  display: inline-block;
+  background-color: #FFED66;
+  padding: 15px 40px;
+  border: none;
+  border-radius: 30px;
+  font-size: 20px;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #FF5E5B;
+  -webkit-box-shadow: 0 3px 0 #FF5E5B;
+          box-shadow: 0 3px 0 #FF5E5B;
+  cursor: pointer;
+  -webkit-transition: all 100ms linear;
+  transition: all 100ms linear;
+}
+
+#Add:hover {
+  -webkit-transform: translateY(-4px);
+  transform: translateY(-4px);
+  -webkit-box-shadow: 0 7px 0 #FF5E5B;
+          box-shadow: 0 7px 0 #FF5E5B;
+}
+
+#Add:focus {
+  outline: 0;
+}
+
+#role {
+  position: relative;
+  top: -30%;
+  left: 5%;
+  z-index: 2;
+  margin-top: -60px;
+  margin-left: -140px;
+}
+
+#role #name {
+  font-size: 2em;
+  text-align: center;
+}
+
+#role #intr {
+  text-align: center;
+  font-size: 1.2em;
+}
+
+#prev,
+#next {
+  position: relative;
+  width: 4rem;
+  cursor: pointer;
+  opacity: .2;
+  -webkit-transition: all .3s ease;
+  transition: all .3s ease;
+}
+
+@media only screen and (max-width: 650px) {
+  #prev,
+  #next {
+    display: none;
+  }
+}
+
+#prev:hover,
+#next:hover {
+  opacity: 1;
+}
+
+#prev {
+  position: absolute;
+  top: 50%;
+  left: 30%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+#next {
+  position: absolute;
+  top: 50%;
+  right: 30%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+/*# sourceMappingURL=all.css.map */
